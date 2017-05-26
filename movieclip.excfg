@@ -1,0 +1,8 @@
+{
+  "name": "MovieClip Importer",
+  "path": ["movieclip.js"],
+  "description": "Import MovieClip to DragonBonesPro",
+  "author": "AnqurVanillapy",
+  "version": "0.1.3",
+  "icon": "icon.png"
+}
