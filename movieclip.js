@@ -53,6 +53,7 @@ var main = (function (_super) {
 
       // Attributes.
       dbTexture['name'] = name
+      dbTexture['imagePath'] = data['file'] || name + '.png'
       dbTexture['SubTexture'] = []
 
       // Resources.
@@ -83,8 +84,10 @@ var main = (function (_super) {
       var i
       var data = JSON.parse(mcData)
       var name = Object.keys(data.mc)[0]
+      var res = data.res
+      var resName = Object.keys(res)
       var resFrames = data.mc[name].frames
-      var duration = this.resNames.length
+      var duration = resName.length
 
       // Attributes.
       DBJson['name'] = name
@@ -118,7 +121,7 @@ var main = (function (_super) {
       for (i = 0; i < duration; ++i) {
         skin[0].slot[0].display.push({
           type: 'image',
-          name: this.resNames[i],
+          name: resName[i],
           transform: {x: 0, y: 0}
         })
       }
@@ -152,7 +155,7 @@ var main = (function (_super) {
 
       for (i = 0; i < duration; ++i) {
         animation[0].slot[0].frame.push({
-          displayIndex: this.resNames.indexOf(resFrames[i].res),
+          displayIndex: resName.indexOf(resFrames[i].res),
           duration: 1,
           tweenEasing: null,
           color: {}

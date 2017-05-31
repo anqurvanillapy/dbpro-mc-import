@@ -1,0 +1,12 @@
+{
+  "name": "dbpro-mc-import",
+  "version": "0.1.0",
+  "description": "MovieClip impotert for DragonBonesPro",
+  "main": "movieclip.js",
+  "scripts": {
+    "build": "zip dbpro-mc-import.expl icon.png movieclip.*"
+  },
+  "repository": "git@github.com:anqurvanillapy/dbpro-mc-import.git",
+  "author": "AnqurVanillapy <anqurvanillapy@gmail.com>",
+  "license": "ISC"
+}
