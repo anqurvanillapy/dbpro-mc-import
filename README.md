@@ -10,12 +10,12 @@ DragonBonesPro plugin: MovieClip importer.
 $ yarn build # npm run build
 ```
 
-**注:** 脚本实则为 Unix 指令 `zip`, 如没有平台支持, 可以手动讲一下文件使用 `zip`
+**注:** 脚本实则为 Unix 指令 `zip`, 如没有平台支持, 可以手动将以下文件使用 `zip`
 格式压缩, 并更改后缀为 `.expl`.
 
 * `icon.png`
 * `movieclip.js`
-* `
+* `moiveclip.excfg`
 
 ## CLI 工具 `mc2db`
 
