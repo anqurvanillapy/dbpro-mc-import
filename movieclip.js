@@ -87,7 +87,7 @@ var main = (function (_super) {
       var res = data.res
       var resName = Object.keys(res)
       var resFrames = data.mc[name].frames
-      var duration = resName.length
+      var duration = resName.length - 1
 
       // Attributes.
       DBJson['name'] = name
@@ -118,7 +118,7 @@ var main = (function (_super) {
         }]
       }]
 
-      for (i = 0; i < duration; ++i) {
+      for (i = 0; i <= duration; ++i) {
         skin[0].slot[0].display.push({
           type: 'image',
           name: resName[i],
@@ -146,14 +146,7 @@ var main = (function (_super) {
         name: 'newAnimation'
       }]
 
-      // First empty frame in slot.
-      animation[0].slot[0].frame.push({
-        duration: 1,
-        tweenEasing: null,
-        color: {}
-      })
-
-      for (i = 0; i < duration; ++i) {
+      for (i = 0; i <= duration; ++i) {
         animation[0].slot[0].frame.push({
           displayIndex: resName.indexOf(resFrames[i].res),
           duration: 1,
@@ -161,6 +154,8 @@ var main = (function (_super) {
           color: {}
         })
       }
+
+      animation[0].slot[0].frame[duration].duration = 0
 
       // First empty one in bones.
       var bones = []
@@ -176,7 +171,7 @@ var main = (function (_super) {
 
       bones.push({ frame: [], name: 'foo' })
 
-      for (i = 0; i < duration; ++i) {
+      for (i = 0; i <= duration; ++i) {
         bones[1].frame.push({
           transform: {x: 0, y: 0},
           duration: 1,
@@ -184,12 +179,7 @@ var main = (function (_super) {
         })
       }
 
-      // last empty one
-      bones[1].frame.push({
-        transform: {},
-        duration: 0,
-        tweenEasing: null
-      })
+      bones[1].frame[duration].duration = 0
 
       animation[0]['bone'] = bones
       mc['animation'] = animation
