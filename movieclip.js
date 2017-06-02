@@ -48,7 +48,7 @@ var main = (function (_super) {
 
     try {
       var data = JSON.parse(mcData)
-      var res = data.res
+      var res = data['res']
       var name = Object.keys(data.mc)[0]
 
       // Attributes.
@@ -57,18 +57,17 @@ var main = (function (_super) {
       dbTexture['SubTexture'] = []
 
       // Resources.
-      this.resNames = Object.keys(res)
-      for (var i = 0; i < this.resNames.length; ++i) {
+      var resNames = Object.keys(res)
+      for (var i = 0; i < resNames.length; ++i) {
         dbTexture['SubTexture'].push({
-          name: this.resNames[i],
-          x: res[this.resNames[i]].x,
-          y: res[this.resNames[i]].y,
-          width: res[this.resNames[i]].w,
-          height: res[this.resNames[i]].h
+          name: resNames[i],
+          x: res[resNames[i]].x,
+          y: res[resNames[i]].y,
+          width: res[resNames[i]].w,
+          height: res[resNames[i]].h
         })
       }
     } catch (e) { /* nop */ }
-
 
     return JSON.stringify(dbTexture)
   }
@@ -85,9 +84,9 @@ var main = (function (_super) {
       var data = JSON.parse(mcData)
       var name = Object.keys(data.mc)[0]
       var res = data.res
-      var resName = Object.keys(res)
+      var resNames = Object.keys(res)
       var resFrames = data.mc[name].frames
-      var duration = resName.length - 1
+      var duration = resNames.length - 1
 
       // Attributes.
       DBJson['name'] = name
@@ -119,10 +118,16 @@ var main = (function (_super) {
       }]
 
       for (i = 0; i <= duration; ++i) {
+        let rN = resNames[i]
+        let f = resFrames[resFrames.map(function (o) { return o.res }).indexOf(rN)]
+        let r = res[resNames[i]]
+        let offsetX = (f.x) ? r.w / 2.0 + f.x : 0
+        let offsetY = (f.y) ? r.h / 2.0 + f.y : 0
+
         skin[0].slot[0].display.push({
           type: 'image',
-          name: resName[i],
-          transform: {x: 0, y: 0}
+          name: rN,
+          transform: {x: offsetX, y: offsetY}
         })
       }
 
@@ -148,7 +153,7 @@ var main = (function (_super) {
 
       for (i = 0; i <= duration; ++i) {
         animation[0].slot[0].frame.push({
-          displayIndex: resName.indexOf(resFrames[i].res),
+          displayIndex: resNames.indexOf(resFrames[i].res),
           duration: 1,
           tweenEasing: null,
           color: {}

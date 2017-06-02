@@ -33,6 +33,12 @@ DragonBonesPro 的骨架文件 (再说一次, 其实是 MovieClip 硬套上骨�
 导入 `foo_ske.json` 文件, 设置纹理文件为 `foo.json`, 图片文件为 `foo.png`
 (假设是 PNG 格式), 插件使用自带的 DragonBonesPro 即可.
 
+## 参考
+
+官方的 [Demos](https://github.com/DragonBones/DragonBonesJS/tree/master/Egret/Demos/resource/assets/ReplaceSlotDisplay)
+中存有可导入的 MovieClip 文件的 DragonBones 格式原型, 本插件基于其相关 JSON
+文件的格式进行的开发.
+
 ## TODOs/issues
 
 * [ ] 帧原点位置尚未支持

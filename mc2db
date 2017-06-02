@@ -19,9 +19,9 @@ function generateDBFile (mcData) {
   var data = JSON.parse(mcData)
   var name = Object.keys(data.mc)[0]
   var res = data.res
-  var resName = Object.keys(res)
+  var resNames = Object.keys(res)
   var resFrames = data.mc[name].frames
-  var duration = resName.length - 1
+  var duration = resNames.length - 1
 
   // Attributes.
   DBJson['name'] = name
@@ -53,10 +53,16 @@ function generateDBFile (mcData) {
   }]
 
   for (i = 0; i <= duration; ++i) {
+    let rN = resNames[i]
+    let f = resFrames[resFrames.map(function (o) { return o.res }).indexOf(rN)]
+    let r = res[resNames[i]]
+    let offsetX = (f.x) ? r.w / 2.0 + f.x : 0
+    let offsetY = (f.y) ? r.h / 2.0 + f.y : 0
+
     skin[0].slot[0].display.push({
       type: 'image',
-      name: resName[i],
-      transform: {x: 0, y: 0}
+      name: rN,
+      transform: {x: offsetX, y: offsetY}
     })
   }
 
@@ -82,7 +88,7 @@ function generateDBFile (mcData) {
 
   for (i = 0; i <= duration; ++i) {
     animation[0].slot[0].frame.push({
-      displayIndex: resName.indexOf(resFrames[i].res),
+      displayIndex: resNames.indexOf(resFrames[i].res),
       duration: 1,
       tweenEasing: null,
       color: {}
