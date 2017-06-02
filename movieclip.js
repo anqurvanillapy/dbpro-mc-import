@@ -69,8 +69,11 @@ var main = (function (_super) {
     return JSON.stringify(dbTexture)
   }
 
-  main.prototype.checkDataValid = function (data) {
-    return true
+  main.prototype.checkDataValid = function (mcData) {
+    var data = JSON.parse(mcData)
+    var name = Object.keys(data.mc)[0]
+    if (data.res && data.mc[name].frames) return true
+    else return false
   }
 
   main.prototype.convertToDBData = function (mcData) {
