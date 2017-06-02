@@ -3,8 +3,6 @@
  *  =====================================
  *
  *  Polyfills, polyfills everywhere...
- *
- *  Reference: https://github.com/DragonBones/DragonBonesJS/tree/a50e2f02c59a1205439fb4dea46f4769731b55fc/Egret/Demos/resource/assets/ReplaceSlotDisplay
  */
 
 // Class `extends' polyfill.
@@ -24,7 +22,6 @@ var main = (function (_super) {
 
   function main () {
     _super.apply(this, arguments)
-    this.resNames = []
   }
 
   main.prototype.dataFileExtension = function () {

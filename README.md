@@ -1,3 +1,5 @@
+![programming](programming.gif)
+
 # dbpro-mc-import
 
 DragonBonesPro plugin: MovieClip importer.
@@ -24,7 +26,7 @@ $ yarn build # npm run build
 导入后的素材类型也同样是 MovieClip.
 
 ```bash
-$ mc2db foo_mc.json
+$ mc2db foo_mc.json .   # . 为输出路径
 ```
 
 此命令将输出两个文件 `foo.json` 及 `foo_ske.json`, 前者为纹理文件, 后者为适配

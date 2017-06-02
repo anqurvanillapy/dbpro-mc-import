@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
+const path = require('path')
 
-if (process.argv.length !== 3) {
-  console.error('Usage: mc2db filename')
+if (process.argv.length !== 4) {
+  console.error('Usage: mc2db filename outdir')
   process.exit(1)
 }
 
-let mcData = fs.readFileSync(process.argv[2])
+let [filename, outdir] = [2, 3].map(i => process.argv[i])
+
+let mcData = fs.readFileSync(filename)
 ;[generateDBFile, generateTexture].map(f => {
   fs.writeFileSync(...f(mcData))
 })
@@ -144,7 +147,7 @@ function generateDBFile (mcData) {
   // Phew!
   DBJson['armature'].push(mc)
 
-  return [`${name}_ske.json`, JSON.stringify(DBJson)]
+  return [path.join(outdir, `${name}_ske.json`), JSON.stringify(DBJson)]
 }
 
 function generateTexture (mcData) {
@@ -171,5 +174,5 @@ function generateTexture (mcData) {
     })
   }
 
-  return [`${name}.json`, JSON.stringify(dbTexture)]
+  return [path.join(outdir, `${name}_tex.json`), JSON.stringify(dbTexture)]
 }
