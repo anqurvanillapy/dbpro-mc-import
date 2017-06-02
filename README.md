@@ -39,13 +39,6 @@ DragonBonesPro 的骨架文件 (再说一次, 其实是 MovieClip 硬套上骨�
 中存有可导入的 MovieClip 文件的 DragonBones 格式原型, 本插件基于其相关 JSON
 文件的格式进行的开发.
 
-## TODOs/issues
-
-* [ ] 帧原点位置尚未支持
-* [ ] 第一次导入后 *可能* 会显示纹理 `MISSING` 问题, 但是第二次导入没问题
-* [x] ~~第一帧通常多余~~ 第一帧不是空帧, 将空帧删除修复了问题
-* [ ] MovieClip 文件与图片文件需同名, `imagePath` 与 `file` 作用尚未知
-
 ## License
 
 ISC
