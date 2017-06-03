@@ -24,6 +24,7 @@ function generateDBFile (mcData) {
   var res = data.res
   var resNames = Object.keys(res)
   var resFrames = data.mc[name].frames
+  var labels = data.mc[name].labels
   var duration = resNames.length - 1
 
   // Attributes.
@@ -79,53 +80,62 @@ function generateDBFile (mcData) {
   mc['skin'] = skin
 
   /* Animation. */
-  var animation = [{
-    frame: [],
-    slot: [{ frame: [], name: 'foo' }],
-    ffd: [],
-    bone: [],
-    playTimes: 0,
-    duration: duration,
-    name: 'newAnimation'
-  }]
+  var animations = []
 
-  for (i = 0; i <= duration; ++i) {
-    animation[0].slot[0].frame.push({
-      displayIndex: resNames.indexOf(resFrames[i].res),
-      duration: 1,
-      tweenEasing: null,
-      color: {}
+  for (var l = 0; l < labels.length; ++l) {
+    var slot = [{ frame: [], name: 'foo' }]
+    var subDuration = labels[l].end - labels[l].frame
+    var animation = {
+      frame: [],
+      slot: slot,
+      ffd: [],
+      bone: [],
+      playTimes: 0,
+      duration: subDuration,
+      name: labels[l].name
+    }
+
+    for (i = labels[l].frame - 1; i < labels[l].end; ++i) {
+      animation.slot[0].frame.push({
+        displayIndex: resNames.indexOf(resFrames[i].res),
+        duration: 1,
+        tweenEasing: null,
+        color: {}
+      })
+    }
+
+    animation.slot[0].frame[subDuration].duration = 0
+
+    // First empty one in bones.
+    var bones = []
+
+    bones.push({
+      frame: [{
+        transform: {},
+        duration: subDuration,
+        tweenEasing: null
+      }],
+      name: 'root'
     })
+
+    bones.push({ frame: [], name: 'foo' })
+
+    // Transforming of the axis.
+    for (i = labels[l].frame - 1; i < labels[l].end; ++i) {
+      bones[1].frame.push({
+        transform: {x: 0, y: 0},
+        duration: 1,
+        tweenEasing: null
+      })
+    }
+
+    bones[1].frame[subDuration].duration = 0
+
+    animation['bone'] = bones
+    animations.push(animation)
   }
 
-  animation[0].slot[0].frame[duration].duration = 0
-
-  // First empty one in bones.
-  var bones = []
-
-  bones.push({
-    frame: [{
-      transform: {},
-      duration: duration,
-      tweenEasing: null
-    }],
-    name: 'root'
-  })
-
-  bones.push({ frame: [], name: 'foo' })
-
-  for (i = 0; i <= duration; ++i) {
-    bones[1].frame.push({
-      transform: {x: 0, y: 0},
-      duration: 1,
-      tweenEasing: null
-    })
-  }
-
-  bones[1].frame[duration].duration = 0
-
-  animation[0]['bone'] = bones
-  mc['animation'] = animation
+  mc['animation'] = animations
 
   /* Bone and slot. */
   mc['bone'] = [{
