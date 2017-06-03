@@ -4,6 +4,7 @@
   "description": "MovieClip impoter for DragonBonesPro",
   "main": "movieclip.js",
   "scripts": {
+    "prebuild": "node prebuild.js",
     "build": "zip dbpro-mc-import.expl icon.png movieclip.*"
   },
   "repository": "git@github.com:anqurvanillapy/dbpro-mc-import.git",

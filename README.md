@@ -1,4 +1,4 @@
-![programming](programming.gif)
+![programming](programming.gif) (<- Try with this image?)
 
 # dbpro-mc-import
 
@@ -12,8 +12,8 @@ DragonBonesPro plugin: MovieClip importer.
 $ yarn build # npm run build
 ```
 
-**注:** 脚本实则为 Unix 指令 `zip`, 如没有平台支持, 可以手动将以下文件使用 `zip`
-格式压缩, 并更改后缀为 `.expl`.
+**注:** 脚本将 `mc2db` 工具中的代码复制到了插件文件中, 并使用 Unix 指令 `zip` 打包插件,
+如没有平台支持, 可以手动将以下文件使用 `zip` 格式压缩, 并更改后缀为 `.expl`.
 
 * `icon.png`
 * `movieclip.js`

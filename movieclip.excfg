@@ -3,6 +3,6 @@
   "path": ["movieclip.js"],
   "description": "Import MovieClip to DragonBonesPro",
   "author": "AnqurVanillapy",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "icon": "icon.png"
 }

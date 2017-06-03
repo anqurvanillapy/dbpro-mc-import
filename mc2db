@@ -17,7 +17,7 @@ let mcData = fs.readFileSync(filename)
 
 function generateDBFile (mcData) {
   var DBJson = {}
-
+// @begin convertToDBData
   var i
   var data = JSON.parse(mcData)
   var name = Object.keys(data.mc)[0]
@@ -82,6 +82,16 @@ function generateDBFile (mcData) {
   /* Animation. */
   var animations = []
 
+  // Mock a label.
+  if (!labels || !labels.length) {
+    labels = [{
+      name: 'newAnimation',
+      frame: 1,
+      end: duration + 1
+    }]
+    console.log(labels)
+  }
+
   for (var l = 0; l < labels.length; ++l) {
     var slot = [{ frame: [], name: 'foo' }]
     var subDuration = labels[l].end - labels[l].frame
@@ -96,12 +106,18 @@ function generateDBFile (mcData) {
     }
 
     for (i = labels[l].frame - 1; i < labels[l].end; ++i) {
-      animation.slot[0].frame.push({
-        displayIndex: resNames.indexOf(resFrames[i].res),
-        duration: 1,
-        tweenEasing: null,
-        color: {}
-      })
+      try {
+        animation.slot[0].frame.push({
+          displayIndex: resNames.indexOf(resFrames[i].res),
+          duration: 1,
+          tweenEasing: null,
+          color: {}
+        })
+      } catch (e) {
+        subDuration = i - 1
+        console.log(`WARNING: Frame ${i} not found, may be mismatched by label`)
+        break
+      }
     }
 
     animation.slot[0].frame[subDuration].duration = 0
@@ -156,13 +172,14 @@ function generateDBFile (mcData) {
 
   // Phew!
   DBJson['armature'].push(mc)
-
+// @end
   return [path.join(outdir, `${name}_ske.json`), JSON.stringify(DBJson)]
 }
 
 function generateTexture (mcData) {
   var dbTexture = {}
 
+// @begin convertToDBTextureAtlasData
   var data = JSON.parse(mcData)
   var res = data['res']
   var name = Object.keys(data.mc)[0]
@@ -183,6 +200,6 @@ function generateTexture (mcData) {
       height: res[resNames[i]].h
     })
   }
-
+// @end
   return [path.join(outdir, `${name}_tex.json`), JSON.stringify(dbTexture)]
 }
